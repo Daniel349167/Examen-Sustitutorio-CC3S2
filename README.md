@@ -18,11 +18,24 @@
 
 - El paso background debería fallar. El primer fallo de prueba en un escenario debería ser: Undefined step: the director of "Alien" should be "Ridley Scott " ¿Qué tendrás que hacer para solucionar ese error específico?
 
-Falta definir el metodo en features para que pase la prueba.
+Falta definir un paso en Cucumber que verifique si el director de una película específica es el esperado
 
-- Añadiendo la columna director a la tabla movie
+- Añadiendo la migración para la columna director a la tabla movie
 
-  ![image](https://github.com/Daniel349167/Examen-Sustitutorio-DesarrolloSoftware/assets/62466867/110e40f5-f3ec-499a-a0b0-cadfeddca8e2)
+  ![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/2924a437-db4d-45eb-acb9-b266a44360eb)
+
+- Actualizando la base de datos de prueba:
+
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/ce0dd129-5495-452f-a1fa-c6bc6824eaf1)
+
+
+No es necesario modificar el archivo del modelo Movie para que reconozca el nuevo campo, ya que Rails automáticamente mapea los campos de la base de datos a atributos del modelo.
+
+- Los pasos que se espera que se aprueben es el background, ya que esto puebla la base de datos con para la nueva columna director.
+
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/e5efe395-c064-47da-8832-c4131d5caeec)
+
+-  
 
 - Añadiendo a la vista principal
 
@@ -41,6 +54,7 @@ Falta definir el metodo en features para que pase la prueba.
   ![image](https://github.com/Daniel349167/Examen-Sustitutorio-DesarrolloSoftware/assets/62466867/7469be56-18a8-4767-9916-5a927a21fa79)
 
   ![image](https://github.com/Daniel349167/Examen-Sustitutorio-DesarrolloSoftware/assets/62466867/4fb63768-94f4-4b5c-99ac-66556710e2e5)
+
 
 
 ## Parte 2
