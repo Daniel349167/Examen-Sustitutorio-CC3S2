@@ -173,7 +173,7 @@ def similar
 ![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/141e6234-87da-4249-a328-da207cf1a86a)
 
 ### Cobertura de codigo
-- Agregue 2 escenarios mas para poder tener un 100% de cobertura:
+- Agregue 2 escenarios para poder tener un 100% de cobertura:
 ```ruby
 Feature: Movie management
   Scenario: Creating a new movie
@@ -205,6 +205,94 @@ Feature: Movie management
 
 ## Parte 2
 
-- ¿Cuál es la diferencia entre autenticación y autorización?
+### Pregunta 1: ¿Por qué la abstracción de un objeto de formulario pertenece a la capa de presentación y no a la capa
+de servicios (o inferior)?
+- La colocación de la abstracción de un objeto de formulario en la capa de presentación en Rails se alinea con los principios de separación de responsabilidades, mantenibilidad y adherencia a las convenciones del framework, mientras que mantiene la lógica de negocios separada y enfocada en sus propias responsabilidades.
 
-La autenticación es para verificar que un usuario sea el que esta autorizado para ingresar a una aplicación web y la autorización son los permisos que se le dan a un usuario ya autenticado para acceder a algún recurso.
+- Los formularios están diseñados para interactuar con el usuario, recogiendo sus entradas y mostrándoles datos. Esta interacción es típicamente manejada en la capa de presentación, que es responsable de la interfaz de usuario y la experiencia del usuario.
+
+- Las capas inferiores, como la capa de servicios, deben ser lo más genéricas posible para permitir su reutilización. Los formularios son específicos de cómo una aplicación en particular quiere recoger o mostrar información, lo que no se alinea con el objetivo de reutilización de las capas inferiores.
+ 
+### Pregunta 2: ¿Cuál es la diferencia entre autenticación y autorización?
+
+- La autenticación es el proceso de verificar la identidad de un usuario o entidad. Se trata de confirmar que el usuario es quien dice ser.
+
+- La autorización ocurre después de la autenticación y es el proceso de determinar qué recursos o acciones tiene permiso para acceder o realizar un usuario autenticado.
+
+### Pregunta 3: middelware
+- viendo los middelwares con rake middelware:
+
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/a1462b74-cc07-4511-b75b-682c9272f74b)
+
+- instalando la gema trace location:
+
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/01c148ab-d2d4-4da5-aa1d-7feca0103ede)
+
+
+- Probando en algunos metodos de mi controlador:
+```ruby
+
+  def index
+    TraceLocation.trace do
+       @movies = Movie.all
+    end
+  end
+
+
+  def create
+    TraceLocation.trace do
+      @movie = Movie.create!(movie_params)
+      flash[:notice] = "#{@movie.title} was successfully created."
+      redirect_to movies_path
+    end
+  end
+
+```
+
+se generararon logs:
+
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/21a4cc2c-5133-4fe1-97bd-73ba18baebe2)
+
+
+- Estos logs son particularmente útiles para entender la secuencia de llamadas a métodos y la interacción entre diferentes partes de mi aplicación.
+
+
+### Pregunta 4: 
+
+Para mostrar los N primeros archivos complejos en Ruby usando Flog y combinarlo con la calculadora de churn para mostrar los N archivos por churn * complejidad, se puede usar el siguiente one-liner( comandos de una linea ) en Unix:
+```bash
+find app/models -name "*.rb" | while read file; do
+    churn=$(git log --format=oneline -- $file | wc -l)
+    complexity=$(flog -s $file | awk '{print $1}')
+    echo "$file $churn $complexity $(($churn * $complexity))"
+done | sort -k 4 -nr | head -n [N]
+```
+
+- explicación:
+
+```bash
+# Busca todos los archivos Ruby en el directorio 'app/models'
+find app/models -name "*.rb" | 
+
+# Para cada archivo encontrado, realiza las siguientes operaciones
+while read file; do
+    
+    # Calcula el churn (número de commits) para el archivo actual
+    churn=$(git log --format=oneline -- $file | wc -l)
+    
+    # Calcula la complejidad del código fuente usando Flog para el archivo actual
+    # y extrae solo el valor numérico de la complejidad
+    complexity=$(flog -s $file | awk '{print $1}')
+    
+    # Imprime el nombre del archivo, su churn, su complejidad y el producto de churn * complejidad
+    echo "$file $churn $complexity $(($churn * $complexity))"
+    
+# Final del bucle
+done | 
+
+# Ordena los resultados por churn * complejidad de mayor a menor
+sort -k 4 -nr | 
+
+# Muestra solo los primeros N archivos según el valor especificado en [N]
+head -n [N]
+```
