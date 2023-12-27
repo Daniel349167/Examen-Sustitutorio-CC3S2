@@ -431,7 +431,7 @@ document.addEventListener("DOMContentLoaded", function() {
 ![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/a50adeff-ca1c-41ee-ac01-aeb1ed76173e)
 
 
-- No muestra error:
+- No muestra error cuando los campos son válidos:
 
 ![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/9f801851-d88d-41c9-bde9-543774fa5387)
 
