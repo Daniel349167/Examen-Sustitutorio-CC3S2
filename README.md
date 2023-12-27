@@ -35,7 +35,34 @@ No es necesario modificar el archivo del modelo Movie para que reconozca el nuev
 
 ![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/e5efe395-c064-47da-8832-c4131d5caeec)
 
--  
+- Para que el primer paso de cada escenario no falle, se debe definir las ruta en el archivo features\support\paths.rb en el metodo path_to
+
+```ruby
+when /^the edit page for "(.*)"/
+      movie = Movie.find_by!(title: $1)
+      edit_movie_path(movie)
+when /^the details page for "(.*)"/
+  movie = Movie.find_by!(title: $1)
+  movie_path(movie)
+```
+
+- Entonces las pruebas van a estar definidas:
+
+```ruby
+Given /^(?:|I )am on (.+)$/ do |page_name|
+  visit path_to(page_name)
+end
+
+When /^(?:|I )go to (.+)$/ do |page_name|
+  visit path_to(page_name)
+end
+```
+
+- y pasarán:
+
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/a6eb1b18-7d71-433f-9087-3405de87f1e6)
+
+### Añadiendo a las vistas y controladores
 
 - Añadiendo a la vista principal
 
@@ -55,6 +82,7 @@ No es necesario modificar el archivo del modelo Movie para que reconozca el nuev
 
   ![image](https://github.com/Daniel349167/Examen-Sustitutorio-DesarrolloSoftware/assets/62466867/4fb63768-94f4-4b5c-99ac-66556710e2e5)
 
+- modificando el controlador
 
 
 ## Parte 2
