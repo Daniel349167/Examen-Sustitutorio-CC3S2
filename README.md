@@ -524,7 +524,7 @@ class TennisScorer
 
 - creo el archivo de pruebas spec\tennis_scorer_spec.rb
 
-  ```ruby
+```ruby
 RSpec.describe "TennisScorer" do
     describe "puntuación básica" do
       it "empieza con un marcador de 0-0" do
@@ -564,9 +564,10 @@ RSpec.describe "TennisScorer" do
       end
     end
   end
-  ```
+```
 
 - Pasa las pruebas:
 
-![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/effe7c19-3d2b-40fb-8c05-9f9a411f7b0c)
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/9bd93164-36bf-4608-9344-540524583e4a)
+
 
