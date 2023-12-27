@@ -296,3 +296,277 @@ sort -k 4 -nr |
 # Muestra solo los primeros N archivos según el valor especificado en [N]
 head -n [N]
 ```
+
+
+## Parte 3
+### Pregunta 1: 
+
+- El código JavaScript necesario para interactuar con las cookies de una página web es:
+
+```javascript
+  // Función para leer una cookie por su nombre
+function leerCookie(nombre) {
+    let cookies = document.cookie.split(';');
+    for(let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i];
+        let partes = cookie.split('=');
+        if(partes[0].trim() === nombre) {
+            return partes[1];
+        }
+    }
+    return null;
+}
+
+// Función para crear una cookie
+function crearCookie(nombre, valor, diasExpiracion) {
+    let fecha = new Date();
+    fecha.setTime(fecha.getTime() + (diasExpiracion * 24 * 60 * 60 * 1000));
+    let expira = "expires=" + fecha.toUTCString();
+    document.cookie = nombre + "=" + valor + ";" + expira + ";path=/";
+}
+
+// Función para eliminar una cookie
+function eliminarCookie(nombre) {
+    document.cookie = nombre + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+// Ejemplo de uso
+console.log("Documento.cookie original:", document.cookie);
+crearCookie("testCookie", "valorTest", 7);
+console.log("Documento.cookie después de crear una cookie:", document.cookie);
+eliminarCookie("testCookie");
+console.log("Documento.cookie después de eliminar la cookie:", document.cookie);
+```
+
+- Este código incluye funciones para leer, crear y eliminar cookies.
+
+#### Explicación del código:
+- leerCookie(nombre): Busca y retorna el valor de una cookie por su nombre. Si la cookie no existe, retorna null.
+
+- crearCookie(nombre, valor, diasExpiracion): Crea una nueva cookie con el nombre y valor especificados. El parámetro diasExpiracion define cuántos días hasta que la cookie expire.
+
+- eliminarCookie(nombre): Elimina una cookie por su nombre configurando su fecha de expiración a una fecha pasada.
+
+- El código también incluye un ejemplo de uso donde se crea una cookie, se lee su valor, y luego se elimina.
+
+
+### Pregunta 2: 
+
+-  Código JavaScript necesario para validar el formulario según los pasos proporcionados:
+
+
+```javascript
+document.addEventListener("DOMContentLoaded", function() {
+
+    // Seleccionar elementos del formulario y elementos con clase 'error'
+    var form = document.forms['myform']; // Accede al formulario por su nombre
+    var emailInput = form['email']; // Accede al campo de correo electrónico
+    var passwordInput = form['password']; // Accede al campo de contraseña
+    var userNameInput = form['userName']; // Accede al campo de nombre de usuario
+    var errorElements = document.querySelectorAll('.error'); // Selecciona todos los elementos con clase 'error'
+
+    // Agregar un detector de eventos para el envío del formulario
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Evita que el formulario se envíe de manera predeterminada
+
+        // Ocultar todos los mensajes de error anteriores
+        errorElements.forEach(function(element) {
+            element.classList.add('hide'); // Añade la clase 'hide' para ocultar el elemento
+        });
+
+        var hasError = false; // Variable para rastrear si se encuentra algún error
+
+        // Validar el email
+        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/; // Expresión regular para correos válidos
+        if (!emailRegex.test(emailInput.value)) { // Prueba si el correo no cumple la expresión regular
+            showError(emailInput, 'Por favor, ingrese un correo electrónico válido.'); // Muestra error
+            hasError = true; // Indica que se ha encontrado un error
+        }
+
+        // Validar la contraseña
+        var passwordRegex = /^[a-zA-Z0-9]{3,8}$/; // Expresión regular para contraseña (letras y números, 3-8 caracteres)
+        if (!passwordRegex.test(passwordInput.value)) { // Prueba si la contraseña no cumple la expresión regular
+            showError(passwordInput, 'La contraseña debe tener entre 3 y 8 caracteres alfanuméricos.'); // Muestra error
+            hasError = true; // Indica que se ha encontrado un error
+        }
+
+        // Crear un objeto con los datos del formulario
+        var formData = {
+            email: emailInput.value,
+            password: passwordInput.value,
+            userName: userNameInput.value
+        };
+
+        // Si no hay errores, procesar el formulario
+        if (!hasError) {
+            console.log('Formulario enviado:', formData); // Aquí se podría enviar el formulario o realizar otra acción
+        }
+    });
+
+    // Función para mostrar los mensajes de error
+    function showError(inputElement, message) {
+        var errorElement = inputElement.nextElementSibling; // Selecciona el elemento hermano siguiente (elemento de error)
+        errorElement.textContent = message; // Establece el mensaje de error
+        errorElement.classList.remove('hide'); // Elimina la clase 'hide' para mostrar el mensaje
+    }
+});
+
+```
+- Este código agrega la lógica de validación al formulario HTML proporcionado.
+
+### Pregunta 3: 
+
+- Añadimos un identificador al formulario de creación de películas nuevas:
+
+```ruby
+<%= form_tag movies_path, class: 'form', id: 'new_movie_form' do %>
+  ...
+<% end %>
+```
+
+- Creamos un archivo app\assets\javascripts\movie_form_validation.js
+
+```javascript
+// Espera a que el contenido del DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', () => {
+  // Obtiene el formulario por su ID
+  const form = document.getElementById('new_movie_form');
+
+  // Añade un escuchador de evento para el envío (submit) del formulario
+  form.addEventListener('submit', function(event) {
+    // Inicializa una variable para seguir el estado de validez del formulario
+    let isValid = true;
+    // Crea un arreglo para almacenar los mensajes de error
+    let messages = [];
+
+    // Selecciona el campo del título en el formulario
+    const title = form.querySelector('input[name="movie[title]"]');
+    // Checa si el título está vacío (después de eliminar espacios en blanco)
+    if (!title.value.trim()) {
+      // Si el título está vacío, marca el formulario como inválido
+      isValid = false;
+      // Añade un mensaje de error al arreglo
+      messages.push("El título no puede estar vacío.");
+      // Añade una clase CSS al campo de título para indicar visualmente el error
+      title.classList.add('invalid-input');
+    } else {
+      // Si el título no está vacío, remueve la indicación visual de error
+      title.classList.remove('invalid-input');
+    }
+
+    // Checa si el formulario no es válido
+    if (!isValid) {
+      // Previene el envío normal del formulario
+      event.preventDefault();
+      // Muestra los mensajes de error en una alerta
+      alert(messages.join('\n'));
+
+      // Agregar mensajes de ayuda al usuario (puedes personalizar estos mensajes)
+      const helpText = document.createElement('div');
+      helpText.innerText = "Por favor, complete los campos resaltados en rojo.";
+      helpText.style.color = 'red';
+      form.appendChild(helpText);
+
+      // Resaltar los campos del formulario con errores
+      form.querySelectorAll('.invalid-input').forEach(input => {
+        input.style.borderColor = 'red';
+      });
+    }
+  });
+});
+
+```
+- Funciona la validación:
+
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/cb0cfdc2-5915-47f4-b6c3-f8243efa9008)
+
+
+## Parte 4: 
+- creo la clase lib\tennis_scorer.rb
+```ruby
+class TennisScorer
+    def initialize
+      # Inicializa el marcador con ambos jugadores en 0.
+      @score = { sacador: 0, receptor: 0 }
+    end
+  
+    def punto_para(jugador)
+      # Incrementa el puntaje del jugador especificado.
+      @score[jugador] += 1
+    end
+  
+    def marcador
+      case
+      when @score[:sacador] == 0 && @score[:receptor] == 0
+        "0-0"  # Cuando ambos jugadores tienen 0 puntos.
+      when @score[:sacador] == 1 && @score[:receptor] == 0
+        "15-0"  # Cuando el sacador tiene 1 punto y el receptor 0.
+      when @score[:sacador] == 0 && @score[:receptor] == 1
+        "0-15"  # Cuando el sacador tiene 0 puntos y el receptor 1.
+      when @score[:sacador] == 1 && @score[:receptor] == 1
+        "15-15"  # Cuando ambos tienen 1 punto.
+      when @score[:sacador] == 3 && @score[:receptor] == 0
+        "40-0"  # Cuando el sacador tiene 3 puntos y el receptor 0.
+      when @score[:sacador] == 4 && @score[:receptor] == 0
+        "W-L"  # Cuando el sacador gana.
+      when @score[:sacador] == 0 && @score[:receptor] == 4
+        "L-W"  # Cuando el receptor gana.
+      when @score[:sacador] == 3 && @score[:receptor] == 3
+        "Deuce"  # Cuando están empatados a 3 puntos.
+      when @score[:sacador] == 4 && @score[:receptor] == 3
+        "SACADOR con ventaja"  # Cuando el sacador tiene ventaja.
+      when @score[:sacador] == 3 && @score[:receptor] == 4
+        "RECEPTOR con ventaja"  # Cuando el receptor tiene ventaja.
+      end
+    end
+  end
+  ```
+
+- creo el archivo de pruebas spec\tennis_scorer_spec.rb
+
+  ```ruby
+RSpec.describe "TennisScorer" do
+    describe "puntuación básica" do
+      it "empieza con un marcador de 0-0" do
+        # Crea una instancia de TennisScorer.
+        scorer = TennisScorer.new
+        # Verifica que el marcador inicial sea "0-0".
+        expect(scorer.marcador).to eq("0-0")
+      end
+  
+      it "hace que el marcador sea 15-0 si el sacador gana un punto" do
+        # Crea una instancia de TennisScorer.
+        scorer = TennisScorer.new
+        # Aumenta el puntaje del sacador en 1 punto.
+        scorer.punto_para(:sacador)
+        # Verifica que el marcador sea "15-0".
+        expect(scorer.marcador).to eq("15-0")
+      end
+  
+      it "hace que el marcador sea 0-15 si el receptor gana un punto" do
+        # Crea una instancia de TennisScorer.
+        scorer = TennisScorer.new
+        # Aumenta el puntaje del receptor en 1 punto.
+        scorer.punto_para(:receptor)
+        # Verifica que el marcador sea "0-15".
+        expect(scorer.marcador).to eq("0-15")
+      end
+  
+      it "hace que el marcador sea 15-15 después de que ambos ganen un punto" do
+        # Crea una instancia de TennisScorer.
+        scorer = TennisScorer.new
+        # Aumenta el puntaje del sacador en 1 punto.
+        scorer.punto_para(:sacador)
+        # Aumenta el puntaje del receptor en 1 punto.
+        scorer.punto_para(:receptor)
+        # Verifica que el marcador sea "15-15".
+        expect(scorer.marcador).to eq("15-15")
+      end
+    end
+  end
+  ```
+
+- Pasa las pruebas:
+
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/effe7c19-3d2b-40fb-8c05-9f9a411f7b0c)
+
