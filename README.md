@@ -481,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 ## Parte 4: Pruebas y Rspec
-- creo la clase lib\tennis_scorer.rb
+- Creo la clase lib\tennis_scorer.rb
 ```ruby
 class TennisScorer
     def initialize
@@ -521,7 +521,7 @@ class TennisScorer
   end
   ```
 
-- creo el archivo de pruebas spec\tennis_scorer_spec.rb
+- Creo el archivo de pruebas spec\tennis_scorer_spec.rb
 
 ```ruby
 RSpec.describe "TennisScorer" do
