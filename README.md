@@ -502,7 +502,41 @@ document.addEventListener('DOMContentLoaded', () => {
 - Funciona la validación:
 
 ![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/cb0cfdc2-5915-47f4-b6c3-f8243efa9008)
+## Parte 4:
+### Pregunta: ¿Dónde podemos conseguir una instancia de Movie real para utilizarla en dicha prueba?
 
+Se pueden crear instancias dentro de la base de datos de prueba utilizando fixtures o factories. Los fixtures se definen como en el archivo YAML mostrado, y se cargan en la base de datos de prueba antes de ejecutar las pruebas. Las factories, por otro lado, son una alternativa proporcionada por gemas como FactoryBot, que permite definir y utilizar un conjunto de atributos predeterminados para crear objetos para las pruebas.
+
+### Pregunta: ¿Qué hacen los siguientes códigos entregados y donde se ubican? . ¿Por qué hay que tener cuidado en su uso?.
+
+```ruby
+fake_movie = double('Movie')
+allow(fake_movie).to receive(:title).and_return('Casablanca')
+allow(fake_movie).to receive(:rating).and_return('PG')
+expect(fake_movie.name_with_rating).to eq 'Casablanca (PG)'
+```
+
+El código proporcionado muestra cómo configurar un "doble" en RSpec para simular un objeto Movie. Se utiliza para probar el método name_with_rating sin necesidad de crear un objeto de la base de datos. Se define qué respuestas debe dar el doble cuando se llaman los métodos :title y :rating. Estos se ubican en un archivo de especificaciones de prueba, en spec/models/movie_spec.rb
+```ruby
+# spec/fixtures/movies.yml
+milk_movie:
+  id: 1
+  title: Milk
+  rating: R
+  release_date: 2008-11-26
+
+documentary_movie:
+  id: 2
+  title: Food, Inc.
+  rating: R
+  release_date: 2008-09-07
+```ruby
+
+ Este bloque de código muestra cómo se pueden utilizar los fixtures en pruebas con RSpec para proporcionar datos de prueba.
+
+### Analiza los pros y los contras del uso de factories o fixtures en las pruebas
+
+Los pros de usar fixtures o factories son que permiten a los desarrolladores trabajar con datos de prueba consistentes y aislados que simulan los datos reales sin afectar la base de datos de producción. Por otro lado, los contras incluyen que los fixtures pueden volverse difíciles de mantener a medida que crece la base de código y que el uso excesivo puede hacer que las pruebas sean lentas. Además, puede haber un desajuste entre los datos de prueba y los datos reales, lo que podría llevar a fallos en las pruebas que no reflejan problemas en el entorno de producción.
 
 ## Parte 4: Pruebas y Rspec
 - Creo la clase lib\tennis_scorer.rb
