@@ -173,7 +173,7 @@ def similar
 ![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/141e6234-87da-4249-a328-da207cf1a86a)
 
 ### Cobertura de codigo
-- Agregue 2 escenarios para poder tener un 100% de cobertura:
+- Agregué 2 escenarios extras para poder tener un 100% de cobertura:
 ```ruby
 Feature: Movie management
   Scenario: Creating a new movie
