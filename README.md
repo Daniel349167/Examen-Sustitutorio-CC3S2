@@ -205,8 +205,7 @@ Feature: Movie management
 
 ## Parte 2
 
-### Pregunta 1: ¿Por qué la abstracción de un objeto de formulario pertenece a la capa de presentación y no a la capa
-de servicios (o inferior)?
+### Pregunta 1: ¿Por qué la abstracción de un objeto de formulario pertenece a la capa de presentación y no a la capa de servicios (o inferior)?
 - La colocación de la abstracción de un objeto de formulario en la capa de presentación en Rails se alinea con los principios de separación de responsabilidades, mantenibilidad y adherencia a las convenciones del framework, mientras que mantiene la lógica de negocios separada y enfocada en sus propias responsabilidades.
 
 - Los formularios están diseñados para interactuar con el usuario, recogiendo sus entradas y mostrándoles datos. Esta interacción es típicamente manejada en la capa de presentación, que es responsable de la interfaz de usuario y la experiencia del usuario.
