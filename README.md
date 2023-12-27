@@ -481,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
 ![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/cb0cfdc2-5915-47f4-b6c3-f8243efa9008)
 
 
-## Parte 4: 
+## Parte 4: Pruebas y Rspec
 - creo la clase lib\tennis_scorer.rb
 ```ruby
 class TennisScorer
