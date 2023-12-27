@@ -389,6 +389,13 @@ document.addEventListener("DOMContentLoaded", function() {
             hasError = true; // Indica que se ha encontrado un error
         }
 
+        // Validar el nombre de usuario
+        var userNameRegex = /^[a-zA-Z0-9]{3,12}$/; // Expresión regular para el nombre de usuario (letras y números, 3-12 caracteres)
+        if (!userNameRegex.test(userNameInput.value)) { // Prueba si el nombre de usuario no cumple la expresión regular
+            showError(userNameInput, 'El nombre de usuario debe tener entre 3 y 12 caracteres alfanuméricos.'); // Muestra error
+            hasError = true; // Indica que se ha encontrado un error
+        }
+
         // Crear un objeto con los datos del formulario
         var formData = {
             email: emailInput.value,
@@ -410,8 +417,25 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+
 ```
 - Este código agrega la lógica de validación al formulario HTML proporcionado.
+- Funcionan las validaciones:
+
+- valida el vacío:
+
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/53483de3-3916-40c9-81df-235d06d2d1e0)
+
+- valida el @  y la cantidad de caracteres:
+
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/a50adeff-ca1c-41ee-ac01-aeb1ed76173e)
+
+
+- No muestra error:
+
+![image](https://github.com/Daniel349167/Examen-Sustitutorio-CC3S2/assets/62466867/9f801851-d88d-41c9-bde9-543774fa5387)
+
+
 
 ### Pregunta 3: 
 
