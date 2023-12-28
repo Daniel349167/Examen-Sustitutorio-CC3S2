@@ -530,7 +530,7 @@ documentary_movie:
   title: Food, Inc.
   rating: R
   release_date: 2008-09-07
-```ruby
+```
 
  Este bloque de código muestra cómo se pueden utilizar los fixtures en pruebas con RSpec para proporcionar datos de prueba.
 
